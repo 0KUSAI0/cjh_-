@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.StackedBarChart?>
+
+<BorderPane prefHeight="816.0" prefWidth="1242.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainUIController">
+   <top>
+      <ToolBar fx:id="topToolBar" prefHeight="30.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <items>
+            <Button fx:id="openBtn" mnemonicParsing="false" onAction="#openBtnAction" text="打开" />
+            <Button fx:id="copyBtn" mnemonicParsing="false" onAction="#copyBtnAction" text="复制" />
+            <Button fx:id="pasteBtn" mnemonicParsing="false" onAction="#pasteBtnAction" text="粘贴" />
+            <Button fx:id="deleteBtn" mnemonicParsing="false" onAction="#deleteBtnAction" text="删除" />
+            <Button fx:id="PPt" mnemonicParsing="false" onAction="#PPTAction" text="播放" />
+        </items>
+      </ToolBar>
+   </top>
+   <bottom>
+      <HBox fx:id="bottomText" prefHeight="23.0" prefWidth="1249.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text fx:id="text" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="637.0">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Text>
+         </children>
+      </HBox>
+   </bottom>
+   <left>
+      <HBox prefHeight="816.0" prefWidth="360.0" style="-fx-background-color: #3e4147;" BorderPane.alignment="CENTER">
+         <children>
+            <TreeView fx:id="treeView" prefHeight="816.0" prefWidth="360.0" />
+         </children>
+      </HBox>
+   </left>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <ToolBar fx:id="toolBar" prefHeight="40.0" prefWidth="200.0">
+               <items>
+                  <Label prefHeight="15.0" prefWidth="581.0" />
+               </items>
+            </ToolBar>
+            <ScrollPane fx:id="scrollPane" prefHeight="739.0" prefWidth="882.0">
+               <content>
+                  <VBox fx:id="pictureBox" prefHeight="720.0" prefWidth="880.0">
+                     <children>
+                        <FlowPane fx:id="flowPane" prefHeight="749.0" prefWidth="880.0" />
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
