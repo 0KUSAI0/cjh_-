@@ -20,7 +20,7 @@ public class Main extends Application {
         ChangeService.stage=stage;
         mainStage=stage;
         FXMLLoader loader=new FXMLLoader();//载入主页面的FXML
-        loader.setLocation(getClass().getResource("/view/MainUI.fxml"));
+        loader.setLocation(getClass().getResource("/view/MainUI.fxml"));//载入主类的用户界面
         Parent root=(Parent) loader.load();
         Scene scene=new Scene(root);
         stage.setTitle("nihao");

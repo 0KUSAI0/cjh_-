@@ -1,7 +1,7 @@
 package model;
 
 import action.*;
-import com.sun.webkit.ContextMenuItem;
+
 import controller.MainUIController;
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
@@ -11,11 +11,11 @@ import javafx.scene.input.DataFormat;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.text.Text;
 
 import java.io.File;
 import java.util.List;
 
+//
 public class MyContextMenu {
     MainUIController mainUIController;
     ContextMenu contextMenu;
@@ -39,26 +39,16 @@ public class MyContextMenu {
         MenuItem rename=new MenuItem("重命名");
         contextMenu.getItems().addAll(open,copy,cut,delete,rename);
 
-        open.setOnAction(e->{
-            new OpenAction();
-        });
+        open.setOnAction(e-> new OpenAction());
 
-        copy.setOnAction(e->{
-            new CopyAction();
-        });
+        copy.setOnAction(e-> new CopyAction(mainUIController));
 
-        cut.setOnAction(e->{
-            new CutAction();
-        });
+        cut.setOnAction(e-> new CutAction(mainUIController));
 
-        delete.setOnAction(e->{
-            new DeleteAction(this.mainUIController);
-        });
+        delete.setOnAction(e-> new DeleteAction(this.mainUIController));
 
 
-        rename.setOnAction(e->{
-            new RenameAction(this.mainUIController);
-        });
+        rename.setOnAction(e-> new RenameAction(this.mainUIController));
         node.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             if(e.getButton()==MouseButton.SECONDARY){
                 contextMenu.show(node,e.getScreenX(),e.getScreenY());
@@ -76,9 +66,7 @@ public class MyContextMenu {
         mouseRightClickMenu.getItems().add(paste);
         mouseRightClickMenu.getItems().add(all);
 
-        paste.setOnAction(e->{
-            new PasteAction(this.mainUIController);
-        });
+        paste.setOnAction(e-> new PasteAction(this.mainUIController));
 
         all.setOnAction(e->{
             for(Node childrenNode: mainUIController.getFlowPane().getChildren()){
@@ -90,17 +78,17 @@ public class MyContextMenu {
         node.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
             Node clickNode = e.getPickResult().getIntersectedNode();
             if (clickNode instanceof FlowPane){// && !(clickNode instanceof PictureNode) && !(clickNode instanceof Text)){//&&mainUIController.getPictures().size()>0) {// 鼠标点击非图片节点
-                PictureNode.clearSelected();// 如果选中的是空白区域清空已选
+                mainUIController.clearSelected();// 如果选中的是空白区域清空已选
                 //System.out.println("asd");
-
+                if(mainUIController.getPictures().size()>0){
+                    for(PictureNode pNode: mainUIController.searchedPicture)
+                        pNode.getImageView().setEffect(null);
+                    mainUIController.searchedPicture.clear();
+                }
                 if (e.getButton() == MouseButton.SECONDARY) {// 鼠标右键
                     Clipboard clipboard = Clipboard.getSystemClipboard();
                     List<File> files = (List<File>) (clipboard.getContent(DataFormat.FILES));
-                    if (files.size() <= 0) {
-                        paste.setDisable(true);
-                    } else {
-                        paste.setDisable(false);
-                    }
+                    paste.setDisable(files.size() <= 0);
                     mouseRightClickMenu.show(node, e.getScreenX(), e.getScreenY());
                 } else {
                     if (mouseRightClickMenu.isShowing()) {

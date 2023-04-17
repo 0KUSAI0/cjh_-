@@ -86,7 +86,7 @@ public class DragSelect {
 
             //图片和选择矩阵的判断
             if(this.isDragged) {
-                PictureNode.clearSelected();
+                mainUIController.clearSelected();
                 for(Node childrenNode:  mainUIController.getFlowPaneChildren()) {
                     if(childrenNode instanceof PictureNode) {
                         if(isRectOverlap((PictureNode)childrenNode))

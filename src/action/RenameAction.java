@@ -33,7 +33,7 @@ public class RenameAction {
     final private TextField bitNum=new TextField();//填写重命名数字位数,说实话这个也要美化一下
     public RenameAction(MainUIController mainUIController){
         this.mainUIController = mainUIController;
-        if(PictureNode.getSelectedPictures().size()==1){
+        if(mainUIController.getSelectedPictures().size()==1){
             single=true;
         }else {
             single=false;
@@ -134,6 +134,31 @@ public class RenameAction {
 
     }
     private boolean renameSingle(){
+
+        PictureNode pNode=mainUIController.getSelectedPictures().get(0);
+        File file=pNode.getImageFile();
+        String pre=file.getParent();
+        String[] strings=file.getName().split("\\.");
+        String suf=strings[strings.length-1];
+        File tmp=new File(pre+"\\"+name.getText()+"."+suf);
+        if(!file.renameTo(tmp)){
+            tmp.delete();
+            return false;
+        }
+        pNode.setSelected(false);
+        mainUIController.removePictures(pNode);
+        try {
+            PictureNode tNode=new PictureNode(mainUIController,new PictureFile(tmp));
+            tNode.setSelected(true);
+            mainUIController.getPictures().add(tNode);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        mainUIController.showPicture();
+        return true;
+
+
+        /*
         PictureNode pNode=PictureNode.getSelectedPictures().get(0);
         File file=pNode.getImageFile();
         String pre=file.getParent();
@@ -155,9 +180,50 @@ public class RenameAction {
         }
         mainUIController.showPicture();
         return true;
+
+         */
     }//单张图片的重命名功能
 
     private boolean renameMultiple(){
+
+
+        File file;
+        int id=Integer.valueOf(startNum.getText());
+        int bit=Integer.valueOf(bitNum.getText());
+        if(id<0||(id+mainUIController.getSelectedPictures().size())>=(int)Math.pow(10,bit))
+            return false;
+        ArrayList<PictureNode> oldList=new ArrayList<PictureNode>();
+        ArrayList<PictureNode> newList=new ArrayList<PictureNode>();
+        for(PictureNode picture :mainUIController.getSelectedPictures()){
+            file=picture.getImageFile();
+            String pre=file.getParent();
+            String[] strings=file.getName().split("\\.");
+            String suf=strings[strings.length-1];
+            String newName=createName(id,bit);
+            File tmp=new File(pre+"\\"+newName+"."+suf);
+            if(!file.renameTo(tmp)){
+                tmp.delete();
+                return false;
+            }
+            oldList.add(picture);
+            try {
+                PictureNode newPicture=new PictureNode(mainUIController,new PictureFile(tmp));
+                newList.add(newPicture);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            ++id;
+        }
+        for(int i=0;i<oldList.size();++i){
+            oldList.get(i).setSelected(false);
+            mainUIController.removePictures(oldList.get(i));
+            newList.get(i).setSelected(true);
+            mainUIController.addPictures(newList.get(i));
+        }
+        mainUIController.showPicture();
+        return true;
+
+        /*
         File file;
         int id=Integer.valueOf(startNum.getText());
         int bit=Integer.valueOf(bitNum.getText());
@@ -193,6 +259,8 @@ public class RenameAction {
         }
         mainUIController.showPicture();
         return true;
+
+         */
     }
 
     private String createName(int id,int bit){

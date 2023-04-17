@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -43,7 +44,10 @@
          <children>
             <ToolBar fx:id="toolBar" prefHeight="40.0" prefWidth="200.0">
                <items>
-                  <Label prefHeight="15.0" prefWidth="581.0" />
+                  <Label prefHeight="15.0" prefWidth="489.0" />
+                  <Button fx:id="uploadimageBtn" mnemonicParsing="false" onAction="#uploadImage" prefHeight="23.0" prefWidth="83.0" text="图片上传" />
+                  <TextField fx:id="searchText" prefHeight="23.0" prefWidth="238.0" />
+                  <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#searchBtnAction" prefHeight="23.0" prefWidth="48.0" text="搜索" />
                </items>
             </ToolBar>
             <ScrollPane fx:id="scrollPane" prefHeight="739.0" prefWidth="882.0">

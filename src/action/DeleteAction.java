@@ -9,6 +9,25 @@ public class DeleteAction {
     MainUIController mainUIController;
     public DeleteAction(MainUIController mainUIController){
         this.mainUIController=mainUIController;
+        if(mainUIController.getSelectedPictures().size()<=0){
+            return;
+        }
+        if(mainUIController.getCutedPictures().size()>0){
+            for(PictureNode pNode: mainUIController.getCutedPictures()){
+                pNode.getImageView().setEffect(null);
+            }
+            mainUIController.clearCutedPictures();
+        }
+        if(MyAlert.showAlert("是否删除这些图片？","", Main.mainStage)){
+            for(PictureNode pNode: mainUIController.getSelectedPictures()){
+                mainUIController.getFlowPane().getChildren().remove(pNode);
+                pNode.getImageFile().delete();
+            }
+        }
+        mainUIController.getSelectedPictureFiles().clear();
+        mainUIController.clearSelected();
+
+        /*
         if(PictureNode.getSelectedPictures().size()<=0){
             return;
         }
@@ -26,5 +45,7 @@ public class DeleteAction {
         }
         PictureNode.getSelectedCopyPictureFiles().clear();
         PictureNode.clearSelected();
+
+         */
     }
 }

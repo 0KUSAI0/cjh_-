@@ -7,6 +7,7 @@ import javafx.stage.Window;
 
 import java.util.Optional;
 
+//MyAlert类作为当用户需用确认是否进行某操作时的弹窗模型
 public class MyAlert {
     public static boolean showAlert(String p_header, String p_message, Window stage){
         Alert alert=new Alert(Alert.AlertType.CONFIRMATION,p_message,new ButtonType("取消", ButtonBar.ButtonData.NO),

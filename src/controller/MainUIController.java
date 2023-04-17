@@ -26,8 +26,14 @@ import java.util.ResourceBundle;
 
 //主页面FXML的控制器
 public class MainUIController implements Initializable {
+
+
+    public ArrayList<PictureNode> selectedPictures = new ArrayList<PictureNode>();//用来存放现在选中的图片节点，在图片被选中的时候添加到这个数组中
+    public ArrayList<File> selectedPictureFiles = new ArrayList<>();//用来放置被选择的图片文件，用于放入系统复制粘贴的面板中，这个是一个临时的存放图片节点文件的数组，每次用完要清空
+    public ArrayList<PictureNode> cutedPictures=new ArrayList<>();//用来存放被进行剪切操作的图片
+    public ArrayList<PictureNode> searchedPicture;//被搜索到的图片
     private MainUIController mainUIController;
-    private ArrayList<PictureNode> pictures;
+    public ArrayList<PictureNode> pictures;
     private ArrayList<File> files;
     public static String theFilePath;
     @FXML
@@ -61,7 +67,17 @@ public class MainUIController implements Initializable {
     private Text text;
     @FXML
     private Button deleteBtn;
+    @FXML
+    private TextField searchText;
 
+    @FXML
+    void searchBtnAction(ActionEvent event) {
+        new searchAction(this.mainUIController,searchText);
+    }
+    @FXML
+    void uploadImage(ActionEvent event) {
+        new uploadImageAction(this.mainUIController);
+    }
     @FXML
     void openBtnAction(ActionEvent event) {
         new OpenAction();
@@ -69,7 +85,7 @@ public class MainUIController implements Initializable {
 
     @FXML
     void copyBtnAction(ActionEvent event) {
-        new CopyAction();
+        new CopyAction(mainUIController);
     }
 
     @FXML
@@ -95,6 +111,7 @@ public class MainUIController implements Initializable {
     }
     private void initData(){
         pictures=new ArrayList<>();
+        searchedPicture=new ArrayList<>();
         treeView=new FileTree(mainUIController,treeView).getTreeView();
         new DragSelect(flowPane,this);
         new MyContextMenu(flowPane,this,false);
@@ -104,8 +121,9 @@ public class MainUIController implements Initializable {
         pasteBtn.setTooltip(new Tooltip("粘贴"));
         deleteBtn.setTooltip(new Tooltip("删除"));
         PPt.setTooltip(new Tooltip("幻灯片播放"));
-    }
+        searchText.setPromptText("搜索图片");
 
+    }
 
     /*
         getter;
@@ -181,4 +199,37 @@ public class MainUIController implements Initializable {
         });
     }
 
+    //新加入的
+
+
+
+
+    public ArrayList<File> getSelectedPictureFiles(){
+        return selectedPictureFiles;
+    }//获取被选中要复制的图片文件
+
+    public ArrayList<PictureNode> getSelectedPictures(){
+        return selectedPictures;
+    }//获取被选中的图片结点
+    public void clearSelected(){
+        for(PictureNode pNode:selectedPictures){
+            pNode.selected.set(false);
+        }
+        selectedPictures.removeAll(selectedPictures);
+        this.getText().setText("已选中 "+selectedPictures.size()+"张图片");
+    }//清除所有被选中的图片结点
+
+    public void setCutedPictures(ArrayList<PictureNode> cutedPictures){
+        this.cutedPictures = cutedPictures;
+    }
+    public void addCutedPictures(PictureNode pNode){
+        cutedPictures.add(pNode);
+    }
+    public void clearCutedPictures(){
+        cutedPictures.removeAll(cutedPictures);
+    }
+
+    public ArrayList<PictureNode> getCutedPictures(){
+        return cutedPictures;
+    }
 }
