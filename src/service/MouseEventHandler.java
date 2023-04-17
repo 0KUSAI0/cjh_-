@@ -1,5 +1,6 @@
 package service;
 
+import controller.MainUIController;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
@@ -11,14 +12,14 @@ public class MouseEventHandler implements EventHandler<MouseEvent> {
 
     Node node=null;
     PictureFile pictureFile;
+    public MainUIController mainUIController;
     public MouseEventHandler(){
     }
-    public MouseEventHandler(Node node,PictureFile pictureFile){
+    public MouseEventHandler(Node node,PictureFile pictureFile,MainUIController mainUIController){
         this.node=node;
         this.pictureFile=pictureFile;
+        this.mainUIController=mainUIController;
     }
-
-
 
 
     @Override
@@ -26,7 +27,7 @@ public class MouseEventHandler implements EventHandler<MouseEvent> {
         if(node instanceof PictureNode){
             if(mouseEvent.isControlDown()==false){
                 if(mouseEvent.getButton()!= MouseButton.SECONDARY|| !((PictureNode)node).selected.getValue()){
-                    PictureNode.clearSelected();
+                    mainUIController.clearSelected();
                 }
                 ((PictureNode)node).setSelected(true);
 
