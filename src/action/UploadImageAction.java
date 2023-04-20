@@ -3,7 +3,6 @@ package action;
 import controller.MainUIController;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import main.Main;
 import model.PictureFile;
 import model.PictureNode;
 
@@ -11,14 +10,19 @@ import java.io.*;
 import java.net.MalformedURLException;
 
 //上传图片功能
-public class uploadImageAction {
+public class UploadImageAction {
     public MainUIController mainUIController;
     private Stage stage;
     private File selcetFile;
     private File uploadFile;
     private FileChooser fc;
-    public uploadImageAction(MainUIController mainUIController){
+    public UploadImageAction(MainUIController mainUIController){
         this.mainUIController = mainUIController;
+        getselcetFile();
+
+    }
+
+    private void getselcetFile(){
         stage=new Stage();
         fc=new FileChooser();
         fc.setTitle("选择你要上传的图片");
@@ -27,6 +31,9 @@ public class uploadImageAction {
                 new FileChooser.ExtensionFilter("图片类型","*.jpg","*.png","*.gif","*.bmp","*.jpge")
         );
         selcetFile=fc.showOpenDialog(stage);
+        if (selcetFile==null)
+            return;
+        System.out.println(selcetFile.getAbsoluteFile());
         String newName=newName(MainUIController.theFilePath,selcetFile.getName());
         File newFile=new File(MainUIController.theFilePath+File.separator+newName);//并且生成一个文件
         try {
@@ -50,6 +57,7 @@ public class uploadImageAction {
         }
 
     }
+
     private void upload(File fromFile,File toFile) throws IOException {
         DataInputStream dis= new DataInputStream( new BufferedInputStream(new FileInputStream(fromFile)));
         DataOutputStream dos= new DataOutputStream( new BufferedOutputStream(new FileOutputStream(toFile)));

@@ -3,8 +3,13 @@ package model;
 import controller.MainUIController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Paint;
+import service.ChangeService;
 
 import java.io.File;
 import java.io.IOException;
@@ -48,7 +53,6 @@ public class FileTree {
                 //mainUIController.getFlowPane().getChildren().remove(0,mainUIController.getFlowPane().getChildren().size());
                 mainUIController.clearPictures();//清除当前再预览部分中的缩略图
                 PictureFile pFile=treeView.getSelectionModel().getSelectedItem().getValue();//获取现在是选中了哪个文件夹
-
                 if(pFile.isDirectory()){
                     MainUIController.theFilePath=pFile.getImageFile().getAbsolutePath();
                     int total=0;
@@ -76,9 +80,8 @@ public class FileTree {
 
                     //mainUIController.showPicture();
                     mainUIController.getText().setText(total+"张图片，共"+(int)size+"Byte");//该文件夹下图片数量
+                    ChangeService.files=mainUIController.pictures;
                 }//如果该文件是文件夹
-
-
             }
         });
     }

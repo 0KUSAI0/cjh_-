@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="746.0" prefWidth="1038.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ImageViewController">
+   <center>
+      <ImageView fx:id="imageView" fitHeight="283.0" fitWidth="456.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+   </center>
+   <right>
+      <Button fx:id="nextImageBtn" contentDisplay="CENTER" mnemonicParsing="false" onAction="#nextAction" prefHeight="122.0" prefWidth="68.0" text="&gt;" textFill="WHITE" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Button>
+   </right>
+   <left>
+      <Button fx:id="previousImageBtn" contentDisplay="CENTER" mnemonicParsing="false" onAction="#previousAction" prefHeight="122.0" prefWidth="68.0" text="&lt;" textFill="WHITE" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Button>
+   </left>
+   <top>
+      <HBox prefHeight="20.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="backBtn" mnemonicParsing="false" onAction="#Back" text="返回">
+               <HBox.margin>
+                  <Insets left="5.0" top="5.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </top>
+   <bottom>
+      <ToolBar fx:id="toolbar" prefHeight="63.0" prefWidth="1038.0" style="-fx-background-color: #091026;" BorderPane.alignment="CENTER">
+         <items>
+            <HBox alignment="CENTER" prefHeight="30.0" prefWidth="1023.0" style="-fx-background-color: transparent;">
+               <children>
+                  <Button fx:id="pptBtn" contentDisplay="CENTER" mnemonicParsing="false" onAction="#PPTAction" text="幻灯片">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="beautyBtn" contentDisplay="CENTER" mnemonicParsing="false" onAction="#beautyAction" text="美化">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="rotateBtn" contentDisplay="CENTER" mnemonicParsing="false" onAction="#rotateAction" text="旋转">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="UpsideDownBtn" contentDisplay="CENTER" mnemonicParsing="false" onAction="#UpsideDown" text="倒置">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="enlargeBtn" contentDisplay="CENTER" mnemonicParsing="false" onAction="#enlargeAction" text="放大">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="smallBtn" contentDisplay="CENTER" mnemonicParsing="false" onAction="#smallAction" text="缩小">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="resetBtn" contentDisplay="CENTER" mnemonicParsing="false" onAction="#resetAction" text="重置" />
+               </children>
+            </HBox>
+         </items>
+      </ToolBar>
+   </bottom>
+</BorderPane>

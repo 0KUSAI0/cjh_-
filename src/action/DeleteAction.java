@@ -21,6 +21,7 @@ public class DeleteAction {
         if(MyAlert.showAlert("是否删除这些图片？","", Main.mainStage)){
             for(PictureNode pNode: mainUIController.getSelectedPictures()){
                 mainUIController.getFlowPane().getChildren().remove(pNode);
+                System.out.println(pNode.getImageFile().getAbsoluteFile());
                 pNode.getImageFile().delete();
             }
         }

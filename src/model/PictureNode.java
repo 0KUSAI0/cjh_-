@@ -13,14 +13,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
-import main.Main;
+import service.ChangeService;
 import service.MouseEventHandler;
+import service.NewName;
 
-import javax.swing.*;
 import java.io.*;
 import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
 
 //PictureFile类继承Label，是预览部分的缩略图结点模型
 public class PictureNode extends Label {
@@ -51,7 +49,6 @@ public class PictureNode extends Label {
       this.setContentDisplay(ContentDisplay.TOP);
       this.setPrefSize(110,110);
       //设置好该图片结点的大小位置
-
       this.image=new Image(pictureFile.getImageFile().toURI().toURL().toString(),100,100,true,true,true);
       this.imageView=new ImageView(image);
       this.pictureName=new Text(pictureFile.getImageName());
@@ -61,6 +58,10 @@ public class PictureNode extends Label {
       //将该文件的图片放入到该图片结点中进行显示
 
   }//对该图片节点进行初始化
+    private void drawPicture(){
+
+
+    }
 
   private void addPictureNodeListener(){
      selected.addListener(new InvalidationListener() {
@@ -163,14 +164,14 @@ public class PictureNode extends Label {
 */
 
 
-
     public void setSelected(boolean value){
-         boolean isTrue=selected.get();
+        boolean isTrue=selected.get();
         selected.set(value);
         if(selected.get()&&!isTrue)
            mainScene.selectedPictures.add(this);
         else if(isTrue&&!selected.get())
               mainScene.selectedPictures.remove(this);
+        ChangeService.selectedPictures=mainScene.selectedPictures;
         mainScene.getText().setText("已选中 "+mainScene.selectedPictures.size()+"张图片");
     }
 
@@ -180,7 +181,7 @@ public class PictureNode extends Label {
       return this.pictureFile.getImageName();
     }
     public void openAction(){
-      new OpenAction();
+      new OpenAction(1);
   }//进入幻灯片模式
 
 }

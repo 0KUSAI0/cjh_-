@@ -8,5 +8,16 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../thumbnailator-0.4.19.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../thumbnailator-0.4.19.jar!/javadoc" />
+        </JAVADOC>
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

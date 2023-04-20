@@ -1,25 +1,19 @@
 package action;
 
-import com.sun.javafx.scene.control.inputmap.InputMap;
 import controller.MainUIController;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.ColorAdjust;
-import javafx.stage.Stage;
-import main.Main;
-import model.PictureFile;
 import model.PictureNode;
 
-import java.io.File;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 
-public class searchAction {
+public class SearchAction {
     public MainUIController mainUIController;
     private TextField searchText;
     private Alert warningAlert;
     private Alert infoAlert;
-    public searchAction(MainUIController mainUIController, TextField searchText) {
+    public SearchAction(MainUIController mainUIController, TextField searchText) {
         this.mainUIController=mainUIController;
         this.searchText=searchText;
         if(searchText.getText()!=null&&!searchText.getText().isEmpty()){

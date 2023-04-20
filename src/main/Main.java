@@ -23,6 +23,7 @@ public class Main extends Application {
         loader.setLocation(getClass().getResource("/view/MainUI.fxml"));//载入主类的用户界面
         Parent root=(Parent) loader.load();
         Scene scene=new Scene(root);
+        scene.getStylesheets().add("view/iVCSS.css");
         stage.setTitle("nihao");
         stage.setScene(scene);
         stage.show();

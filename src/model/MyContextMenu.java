@@ -39,7 +39,7 @@ public class MyContextMenu {
         MenuItem rename=new MenuItem("重命名");
         contextMenu.getItems().addAll(open,copy,cut,delete,rename);
 
-        open.setOnAction(e-> new OpenAction());
+        open.setOnAction(e-> new OpenAction(0));
 
         copy.setOnAction(e-> new CopyAction(mainUIController));
 

@@ -16,7 +16,7 @@ import model.MyContextMenu;
 import model.PictureFile;
 import model.FileTree;
 import model.PictureNode;
-import service.ChangeService;
+import service.DragPicture;
 import service.DragSelect;
 
 import java.io.File;
@@ -35,6 +35,7 @@ public class MainUIController implements Initializable {
     private MainUIController mainUIController;
     public ArrayList<PictureNode> pictures;
     private ArrayList<File> files;
+    //private ArrayList<PictureNode>
     public static String theFilePath;
     @FXML
     private Button uploadImageBtn;
@@ -42,7 +43,6 @@ public class MainUIController implements Initializable {
     private Button searchBtn;
     @FXML
     private ToolBar toolBar;
-
     @FXML
     private ToolBar topToolBar;
     @FXML
@@ -72,15 +72,15 @@ public class MainUIController implements Initializable {
 
     @FXML
     void searchBtnAction(ActionEvent event) {
-        new searchAction(this.mainUIController,searchText);
+        new SearchAction(this.mainUIController,searchText);
     }
     @FXML
     void uploadImage(ActionEvent event) {
-        new uploadImageAction(this.mainUIController);
+        new UploadImageAction(this.mainUIController);
     }
     @FXML
     void openBtnAction(ActionEvent event) {
-        new OpenAction();
+        new OpenAction(0);
     }
 
     @FXML
@@ -112,6 +112,7 @@ public class MainUIController implements Initializable {
     private void initData(){
         pictures=new ArrayList<>();
         searchedPicture=new ArrayList<>();
+        files=new ArrayList<>();
         treeView=new FileTree(mainUIController,treeView).getTreeView();
         new DragSelect(flowPane,this);
         new MyContextMenu(flowPane,this,false);
@@ -122,7 +123,8 @@ public class MainUIController implements Initializable {
         deleteBtn.setTooltip(new Tooltip("删除"));
         PPt.setTooltip(new Tooltip("幻灯片播放"));
         searchText.setPromptText("搜索图片");
-
+        new DragPicture(this.mainUIController);
+        ImageViewController.index=0;
     }
 
     /*
@@ -160,7 +162,10 @@ public class MainUIController implements Initializable {
         for (int i=0;i<pictures.size();++i){
             files.add(pictures.get(i).getImageFile());
         }
-        ChangeService.files=files;
+    }
+
+    public void addPictureFiles(PictureNode pNode){
+        files.add(pNode.getPictureFile().getImageFile());
     }
 
     public void clearPictures(){
@@ -175,6 +180,10 @@ public class MainUIController implements Initializable {
                 break;
             }
         }
+    }
+
+    public ArrayList<File> getFiles(){
+        return this.files;
     }
 
    /*private void flowPaneAddListener(){
@@ -195,11 +204,11 @@ public class MainUIController implements Initializable {
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 double height=t1.doubleValue();
                 scrollPane.setPrefHeight(height-bottomText.getPrefHeight()-toolBar.getPrefHeight()-topToolBar.getPrefHeight());
+                pictureBox.setPrefHeight(height-topToolBar.getPrefHeight()-toolBar.getPrefHeight());
+                flowPane.setPrefHeight(pictureBox.getPrefHeight());
             }
         });
     }
-
-    //新加入的
 
 
 
