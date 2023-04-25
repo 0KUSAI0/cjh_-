@@ -94,6 +94,8 @@ public class BeautyController implements Initializable {
     private ImageView image5;
 
     @FXML
+    private Button backBtn2;
+    @FXML
     private ImageView image6;
 
 //    @FXML

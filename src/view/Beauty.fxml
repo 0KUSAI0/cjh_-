@@ -62,9 +62,7 @@
                                              <bumpInput>
                                                 <Shadow />
                                              </bumpInput>
-                                             <light>
-                                                <Light.Distant />
-                                             </light>
+
                                           </Lighting>
                                        </effect>
                                     </Slider>

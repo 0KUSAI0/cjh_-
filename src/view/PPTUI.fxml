@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.geometry.Insets?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #2e2d2d;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PPTController">
     <children>
@@ -34,7 +30,7 @@
             <top>
                 <HBox prefHeight="67.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
                     <children>
-                        <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#Back" style="-fx-background-color: #2e2d2d; -fx-border-color: white;" text="返回" textFill="WHITE">
+                        <Button fx:id="backBtn2" contentDisplay="CENTER" mnemonicParsing="false" onAction="#Back" style="-fx-background-color: #2e2d2d; -fx-border-color: white;" text="返回" textFill="WHITE">
                             <graphic>
                                 <ImageView fitHeight="19.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                             </graphic></Button>
