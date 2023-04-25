@@ -9,10 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="746.0" prefWidth="1038.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ImageViewController">
-   <center>
-      <ImageView fx:id="imageView" fitHeight="283.0" fitWidth="456.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
-   </center>
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="746.0" prefWidth="1038.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ImageViewController">
    <right>
       <Button fx:id="nextImageBtn" contentDisplay="CENTER" mnemonicParsing="false" onAction="#nextAction" prefHeight="122.0" prefWidth="68.0" text="&gt;" textFill="WHITE" BorderPane.alignment="CENTER">
          <font>
@@ -28,20 +25,12 @@
       </Button>
    </left>
    <top>
-      <HBox prefHeight="20.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="backBtn" mnemonicParsing="false" onAction="#Back" text="返回">
-               <HBox.margin>
-                  <Insets left="5.0" top="5.0" />
-               </HBox.margin>
-            </Button>
-         </children>
-      </HBox>
+      <HBox prefHeight="20.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
    </top>
    <bottom>
       <ToolBar fx:id="toolbar" prefHeight="63.0" prefWidth="1038.0" style="-fx-background-color: #091026;" BorderPane.alignment="CENTER">
          <items>
-            <HBox alignment="CENTER" prefHeight="30.0" prefWidth="1023.0" style="-fx-background-color: transparent;">
+            <HBox fx:id="hbox" alignment="CENTER" prefHeight="30.0" prefWidth="1023.0" style="-fx-background-color: transparent;">
                <children>
                   <Button fx:id="pptBtn" contentDisplay="CENTER" mnemonicParsing="false" onAction="#PPTAction" text="幻灯片">
                      <HBox.margin>
@@ -79,4 +68,15 @@
          </items>
       </ToolBar>
    </bottom>
+   <center>
+      <ScrollPane fx:id="scrollPane" style="-fx-background-color: transparent;" BorderPane.alignment="CENTER">
+         <content>
+            <BorderPane fx:id="pictureBox" prefHeight="655.0" prefWidth="897.0">
+               <center>
+                  <ImageView fx:id="imageView" fitHeight="392.0" fitWidth="527.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
+         </content>
+      </ScrollPane>
+   </center>
 </BorderPane>

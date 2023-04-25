@@ -1,28 +1,22 @@
-package service;
+package action;
 
 import controller.MainUIController;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Window;
 import model.PictureNode;
-
-import java.nio.channels.SelectableChannel;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.min;
 
 
-public class DragSelect {
-    Node node;
-    MainUIController mainUIController;
+public class DragSelectAction {
+    private Node node;
+    private MainUIController mainUIController;
     private Rectangle selectRectangle;
     private boolean isDragged;
 
-    public DragSelect(Node node, MainUIController mainUIController) {
+    public DragSelectAction(Node node, MainUIController mainUIController) {
         this.node = node;
         this.mainUIController = mainUIController;
         selectRectangle = new Rectangle();
@@ -38,22 +32,22 @@ public class DragSelect {
             selectRectangle.setY(nowY);
             selectRectangle.setHeight(0);
             selectRectangle.setWidth(0);
-        });
+        });//设置当前鼠标在该结点下按下的监听获取点击时的鼠标位置信息
 
         node.addEventHandler(MouseEvent.MOUSE_DRAGGED, (MouseEvent e) -> {
             this.isDragged = true;
             double nowX = e.getX();
-            double nowY = e.getY();
+            double nowY = e.getY();//当前鼠标位置信息
             double baseX = selectRectangle.getX();
-            double baseY = selectRectangle.getY();
+            double baseY = selectRectangle.getY();//鼠标一开始点击时的位置信息
 
             selectRectangle.setX(min(baseX, nowX));
             selectRectangle.setY(min(baseY, nowY));
             selectRectangle.setHeight(abs(baseY - nowY));
             selectRectangle.setWidth(abs(baseX-nowX));
+            //根据两个位置信息计算并生成不可见矩阵
 
             if(this.isDragged) {
-                //PictureNode.clearSelected();
                 for(Node childrenNode:  mainUIController.getFlowPaneChildren()) {
                     if(childrenNode instanceof PictureNode) {
                         if(isRectOverlap((PictureNode)childrenNode)){
@@ -61,13 +55,12 @@ public class DragSelect {
                         }else{
                             ((PictureNode)childrenNode).setSelected(false);
                         }
-
                     }
                 }
-            }
+            }//在拖拽的时候，不断判断有哪些图片结点在该矩阵内部
             selectRectangle.setX(baseX);
             selectRectangle.setY(baseY);
-        });
+        });//设置当前鼠标在该结点下拖拽活动的监听以获取鼠标位置信息
 
         //鼠标放开，更新选择矩阵的左上角点以及边长
         node.addEventHandler(MouseEvent.MOUSE_RELEASED, (MouseEvent e) -> {
@@ -82,8 +75,6 @@ public class DragSelect {
             selectRectangle.setWidth(abs(baseX - nowX));
             selectRectangle.setHeight(abs(baseY - nowY));
 
-//			System.out.println(selectRectangle);
-
             //图片和选择矩阵的判断
             if(this.isDragged) {
                 mainUIController.clearSelected();
@@ -92,7 +83,7 @@ public class DragSelect {
                         if(isRectOverlap((PictureNode)childrenNode))
                             ((PictureNode)childrenNode).setSelected(true);
                     }
-//					((PictureNode)childrenNode).setSelected(false);
+//
                 }
             }
 
@@ -105,6 +96,6 @@ public class DragSelect {
         double selectRectangleCenterPointY = selectRectangle.getY() + selectRectangle.getHeight()/2.0;
         return abs(imageNodeCenterPointX - selectRectangleCenterPointX) <= (pictureNode.getWidth()/2.0 + selectRectangle.getWidth()/2.0) &&
                 abs(imageNodeCenterPointY - selectRectangleCenterPointY) <= (pictureNode.getHeight()/2.0 + selectRectangle.getHeight()/2.0);
-    }
+    }//当宽度高度有一半在矩阵范围内则设置这些图片结点被选中
 
 }

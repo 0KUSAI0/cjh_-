@@ -7,55 +7,30 @@ import javafx.scene.input.DataFormat;
 import model.PictureNode;
 
 public class CopyAction {
-    public MainUIController mainUIController;
+    private MainUIController mainUIController;
     public CopyAction(MainUIController mainUIController){
         this.mainUIController=mainUIController;
         if(mainUIController.getSelectedPictures().size()<=0){
             return;
-        }
+        }//当当前没有选中的图片节点直接返回
         if(mainUIController.getCutedPictures().size()>0){
             for(PictureNode pNode: mainUIController.getCutedPictures()){
                 pNode.getImageView().setEffect(null);
             }
             mainUIController.clearCutedPictures();
-        }
+        }//当当前文件夹中有被剪切的图片结点，取消其剪切效果
 
         Clipboard clipboard=Clipboard.getSystemClipboard();
         ClipboardContent clipboardContent=new ClipboardContent();
-        clipboard.clear();
+        clipboard.clear();//获取系统剪切板
 
         for(PictureNode pNode: mainUIController.getSelectedPictures()){
             mainUIController.getSelectedPictureFiles().add(pNode.getImageFile());
-        }
-        clipboardContent.putFiles(mainUIController.getSelectedPictureFiles());
+        }//遍历被选中的图片节点，加入到临时存放被选中图片结点的文件数组中
+        clipboardContent.putFiles(mainUIController.getSelectedPictureFiles());//将临时存放被选中图片结点的文件数组放入到系统剪切板中完成复制
         clipboard.setContent(clipboardContent);
-        mainUIController.getSelectedPictureFiles().clear();
+        mainUIController.getSelectedPictureFiles().clear();//清空临时存放被选中图片结点的文件数组
         clipboard=null;
         clipboardContent=null;
-
-        /*
-        if(PictureNode.getSelectedPictures().size()<=0){
-            return;
-        }
-        if(PictureNode.getCutedPictures().size()>0){
-            for(PictureNode pNode: PictureNode.getCutedPictures()){
-                pNode.getImageView().setEffect(null);
-            }
-            PictureNode.clearCutedPictures();
-        }
-
-        Clipboard clipboard=Clipboard.getSystemClipboard();
-        ClipboardContent clipboardContent=new ClipboardContent();
-        clipboard.clear();
-
-        for(PictureNode pNode: PictureNode.getSelectedPictures()){
-            PictureNode.getSelectedCopyPictureFiles().add(pNode.getImageFile());
-        }
-        clipboardContent.putFiles(PictureNode.getSelectedCopyPictureFiles());
-        clipboard.setContent(clipboardContent);
-        PictureNode.getSelectedCopyPictureFiles().clear();
-        clipboard=null;
-        clipboardContent=null;
-        */
     }
 }

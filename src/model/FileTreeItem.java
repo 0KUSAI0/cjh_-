@@ -13,13 +13,13 @@ public class FileTreeItem extends TreeItem<PictureFile> {
     private boolean isFirstChildren=true;
     private boolean isFirstLeaf=true;
 
-
     public FileTreeItem(PictureFile fileTreeItem){
         super(fileTreeItem);
     }//构造函数
 
     @Override
     public ObservableList<TreeItem<PictureFile>> getChildren() {
+
         if (isFirstChildren){
             isFirstChildren=false;
             super.getChildren().setAll(buildChildren(this));
@@ -29,6 +29,7 @@ public class FileTreeItem extends TreeItem<PictureFile> {
 
     @Override
     public boolean isLeaf() {
+
         if (isFirstLeaf) {
             isFirstLeaf = false;
             PictureFile pictureFile = getValue();

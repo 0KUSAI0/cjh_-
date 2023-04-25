@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class ChangeService {
 
+    public static boolean flag=false;
     public static int howChange=0;
     public static Stage stage;
     public static ArrayList<PictureNode> files;

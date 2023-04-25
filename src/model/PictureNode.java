@@ -15,7 +15,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import service.ChangeService;
 import service.MouseEventHandler;
-import service.NewName;
 
 import java.io.*;
 import java.net.MalformedURLException;
@@ -58,10 +57,6 @@ public class PictureNode extends Label {
       //将该文件的图片放入到该图片结点中进行显示
 
   }//对该图片节点进行初始化
-    private void drawPicture(){
-
-
-    }
 
   private void addPictureNodeListener(){
      selected.addListener(new InvalidationListener() {

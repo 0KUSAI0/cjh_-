@@ -24,7 +24,7 @@ public class Main extends Application {
         Parent root=(Parent) loader.load();
         Scene scene=new Scene(root);
         scene.getStylesheets().add("view/iVCSS.css");
-        stage.setTitle("nihao");
+        stage.setTitle("电子图片管理系统");
         stage.setScene(scene);
         stage.show();
     }

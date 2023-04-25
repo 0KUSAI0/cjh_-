@@ -130,7 +130,7 @@ public class RenameAction {
         hBox2.getChildren().add(msg);
         HBox hBox3=new HBox();
         hBox3.setPadding(new Insets(5,5,0,0));
-        root.getChildren().addAll(hBox1,hBox2,hBox3);
+        root.getChildren().addAll(hBox1,hBox2,hBox3,msg,submit);
 
     }
     private boolean renameSingle(){

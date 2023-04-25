@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
 <?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.chart.StackedBarChart?>
 
 <BorderPane prefHeight="816.0" prefWidth="1242.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainUIController">
    <top>
@@ -45,7 +41,9 @@
             <ToolBar fx:id="toolBar" prefHeight="40.0" prefWidth="200.0">
                <items>
                   <HBox HBox.hgrow="ALWAYS">
-                  </HBox>
+                     <children>
+                        <TextField fx:id="findPictureField" prefHeight="23.0" prefWidth="451.0" text="请输入你要到达文件夹路径：" />
+                     </children></HBox>
                   <Button fx:id="uploadimageBtn" mnemonicParsing="false" onAction="#uploadImage" prefHeight="23.0" prefWidth="83.0" text="图片上传" />
                   <TextField fx:id="searchText" prefHeight="23.0" prefWidth="238.0" />
                   <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#searchBtnAction" prefHeight="23.0" prefWidth="48.0" text="搜索" />

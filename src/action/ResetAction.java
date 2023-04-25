@@ -9,6 +9,6 @@ public class ResetAction {
         this.imageView = imageView;
         imageView.setFitHeight(ChangeService.originHeight);
         imageView.setFitWidth(ChangeService.originWidth);
-        ZoomPicture.changeNum=1;
+        ZoomImage.changeNum=1;
     }
 }

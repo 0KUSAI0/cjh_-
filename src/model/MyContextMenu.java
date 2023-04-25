@@ -17,20 +17,20 @@ import java.util.List;
 
 //
 public class MyContextMenu {
-    MainUIController mainUIController;
-    ContextMenu contextMenu;
+    private MainUIController mainUIController;
+    private ContextMenu contextMenu;
 
     public MyContextMenu(Node node,MainUIController mainUIController,boolean choice){
         this.mainUIController = mainUIController;
         this.contextMenu = new ContextMenu();
         if(choice){
-            PictureMenu(node);
+            pictureMenu(node);
         }else if(node!=null){
             nullMenu(node);
         }
     }
 
-    private void PictureMenu(Node node){
+    private void pictureMenu(Node node){
         contextMenu=new ContextMenu();
         MenuItem open=new MenuItem("打开");
         MenuItem copy=new MenuItem("复制");

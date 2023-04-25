@@ -4,6 +4,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -16,17 +17,18 @@ import model.MyContextMenu;
 import model.PictureFile;
 import model.FileTree;
 import model.PictureNode;
-import service.DragPicture;
-import service.DragSelect;
+import action.DragImageAction;
+import action.DragSelectAction;
 
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import static javafx.scene.control.TreeItem.valueChangedEvent;
+
 //主页面FXML的控制器
 public class MainUIController implements Initializable {
-
 
     public ArrayList<PictureNode> selectedPictures = new ArrayList<PictureNode>();//用来存放现在选中的图片节点，在图片被选中的时候添加到这个数组中
     public ArrayList<File> selectedPictureFiles = new ArrayList<>();//用来放置被选择的图片文件，用于放入系统复制粘贴的面板中，这个是一个临时的存放图片节点文件的数组，每次用完要清空
@@ -37,6 +39,8 @@ public class MainUIController implements Initializable {
     private ArrayList<File> files;
     //private ArrayList<PictureNode>
     public static String theFilePath;
+    @FXML
+    private TextField findPictureField;
     @FXML
     private Button uploadImageBtn;
     @FXML
@@ -71,40 +75,49 @@ public class MainUIController implements Initializable {
     private TextField searchText;
 
     @FXML
-    void searchBtnAction(ActionEvent event) {
+    private void searchBtnAction(ActionEvent event) {
         new SearchAction(this.mainUIController,searchText);
     }
     @FXML
-    void uploadImage(ActionEvent event) {
+    private void uploadImage(ActionEvent event) {
         new UploadImageAction(this.mainUIController);
     }
     @FXML
-    void openBtnAction(ActionEvent event) {
+    private void openBtnAction(ActionEvent event) {
         new OpenAction(0);
     }
 
     @FXML
-    void copyBtnAction(ActionEvent event) {
+    private void copyBtnAction(ActionEvent event) {
         new CopyAction(mainUIController);
     }
 
     @FXML
-    void pasteBtnAction(ActionEvent event) {
+    private void pasteBtnAction(ActionEvent event) {
         new PasteAction(this);
     }
     @FXML
-    void deleteBtnAction(ActionEvent event) {
+    private void deleteBtnAction(ActionEvent event) {
         new DeleteAction(this);
     }
     @FXML
-    void PPTAction(ActionEvent event) {
-        new PPTAction();
+    private void PPTAction(ActionEvent event) {
+        new PPTAction(0,false);
     }
 
     public MainUIController(){
         mainUIController=this;
     }
 
+    public void FindPictureAction(TreeView<PictureFile> leafView){
+        findPictureField.setOnAction(event -> {
+            //System.out.println("Search");
+            String fileType = "";
+            String path = findPictureField.getText();
+            fileType = path.substring(path.lastIndexOf(":")-1);
+            new FindPictureAction(fileType,leafView);
+        });
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initData();
@@ -114,7 +127,8 @@ public class MainUIController implements Initializable {
         searchedPicture=new ArrayList<>();
         files=new ArrayList<>();
         treeView=new FileTree(mainUIController,treeView).getTreeView();
-        new DragSelect(flowPane,this);
+        FindPictureAction(treeView);
+        new DragSelectAction(flowPane,this);
         new MyContextMenu(flowPane,this,false);
         ScreenAdaptation();
         openBtn.setTooltip(new Tooltip("打开"));
@@ -123,7 +137,7 @@ public class MainUIController implements Initializable {
         deleteBtn.setTooltip(new Tooltip("删除"));
         PPt.setTooltip(new Tooltip("幻灯片播放"));
         searchText.setPromptText("搜索图片");
-        new DragPicture(this.mainUIController);
+        new DragImageAction(this.mainUIController);
         ImageViewController.index=0;
     }
 

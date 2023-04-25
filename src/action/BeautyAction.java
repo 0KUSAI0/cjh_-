@@ -11,7 +11,7 @@ public class BeautyAction {
     public BeautyAction(){
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/View/Beautiful.fxml"));
+            loader.setLocation(getClass().getResource("/View/Beauty.fxml"));
             Parent root = (Parent)loader.load();
             Scene scene = new Scene(root);
             scene.getStylesheets().add("view/iVCSS.css");

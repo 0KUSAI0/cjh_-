@@ -11,7 +11,7 @@ import java.net.MalformedURLException;
 
 //上传图片功能
 public class UploadImageAction {
-    public MainUIController mainUIController;
+    private MainUIController mainUIController;
     private Stage stage;
     private File selcetFile;
     private File uploadFile;

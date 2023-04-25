@@ -9,7 +9,7 @@ import model.PictureNode;
 import java.util.ArrayList;
 
 public class SearchAction {
-    public MainUIController mainUIController;
+    private MainUIController mainUIController;
     private TextField searchText;
     private Alert warningAlert;
     private Alert infoAlert;
