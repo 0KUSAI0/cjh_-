@@ -137,7 +137,6 @@ public class ImageViewController implements Initializable {
         }
         pNode=ChangeService.files.get(index);
         pNode.setSelected(false);
-        System.out.println("b"+pNode.getPictureName()+" "+pNode.selected);
         Image image=new Image(pNode.getPictureFile().getImageFile().toURI().toURL().toString(),0,529,true,true,true);
         imageView.setPreserveRatio(true);
         imageView.setSmooth(true);

@@ -171,7 +171,6 @@ public class PictureNode extends Label {
     }
 
 
-
     public String getPictureName(){
       return this.pictureFile.getImageName();
     }

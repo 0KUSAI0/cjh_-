@@ -23,4 +23,5 @@ public class ChangeService {
     //记录当打开图片查看界面中图片的第一张图片
     public static double originHeight,originWidth;
     //记录当前图片查看界面中图片的初始宽高
+
 }
