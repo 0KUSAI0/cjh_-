@@ -72,8 +72,6 @@ public class FileTree {
                             }
                         }
                     }//将该文件夹下的图片加入到预览部分中的图片数组中，同时将其显示在预览部分
-
-                    //mainUIController.showPicture();
                     mainUIController.getText().setText(total+"张图片，共"+size/1e6+"MB");//该文件夹下图片数量
                     ChangeService.files=mainUIController.pictures;
                 }//如果该文件是文件夹

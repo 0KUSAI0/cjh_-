@@ -58,7 +58,7 @@ public class ImageViewController implements Initializable {
     private ImageView imageView;
 
     @FXML
-    private BorderPane pictureBox;
+    private BorderPane pictureBox2;
     @FXML
     private Button smallBtn;
 
@@ -78,12 +78,12 @@ public class ImageViewController implements Initializable {
 
     @FXML
     private void previousAction(ActionEvent event) {
-       index=new SwitchPicture(imageView,index).nextPicture();
+       index=new SwitchPicture(imageView,index).prePicture();
     }
 
     @FXML
     private void nextAction(ActionEvent event) {
-        index=new SwitchPicture(imageView,index).prePicture();
+        index=new SwitchPicture(imageView,index).nextPicture();
     }
 
     @FXML
@@ -132,7 +132,7 @@ public class ImageViewController implements Initializable {
     }
 
     private void initData() throws MalformedURLException {
-        if(ChangeService.howChange==1){
+        if(ChangeService.howChange==1||ChangeService.selectedPictures.size()>0){
             searchPicturePos();
         }
         pNode=ChangeService.files.get(index);
@@ -165,19 +165,19 @@ public class ImageViewController implements Initializable {
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 double width=t1.doubleValue();
                 hbox.setPrefWidth(width-25);
-                pictureBox.setPrefWidth(width-previousImageBtn.getPrefWidth()-nextImageBtn.getPrefWidth()-15);
+                pictureBox2.setPrefWidth(width-previousImageBtn.getPrefWidth()-nextImageBtn.getPrefWidth()-15);
             }
         });
         borderPane.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 double height=t1.doubleValue();
-                pictureBox.setPrefHeight(height-20-toolbar.getPrefHeight()-15);
+                pictureBox2.setPrefHeight(height-20-toolbar.getPrefHeight()-15);
             }
         });
     }
 
-    private void searchPicturePos(){
+    public static void searchPicturePos(){
         int len1= ChangeService.files.size();
         if(ChangeService.selectedPictures==null||ChangeService.selectedPictures.size()==0){
             index=0;

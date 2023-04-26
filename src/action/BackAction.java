@@ -16,6 +16,7 @@ public class BackAction {
             Stage stage=new Stage();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/ImageView.fxml"));
+            //加载图片查看界面
             Parent root = null;
             try {
                 root = (Parent) loader.load();
@@ -23,7 +24,7 @@ public class BackAction {
                 scene.getStylesheets().add("view/iVCSS.css");
                 ChangeService.stage.setScene(scene);
                 ChangeService.stage.setTitle("iViewer_1.0");
-                ChangeService.stage.setResizable(false);
+                ChangeService.stage.setResizable(true);
                 ChangeService.stage.show();
             } catch (IOException e) {
                 throw new RuntimeException(e);

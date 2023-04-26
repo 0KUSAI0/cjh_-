@@ -92,10 +92,14 @@ public class DragSelectAction {
     private boolean isRectOverlap(PictureNode  pictureNode) {
         double imageNodeCenterPointX = pictureNode.getLayoutX() + pictureNode.getWidth()/2.0;
         double imageNodeCenterPointY = pictureNode.getLayoutY() + pictureNode.getHeight()/2.0;
-        double selectRectangleCenterPointX = selectRectangle.getX() + selectRectangle.getWidth()/2.0;
-        double selectRectangleCenterPointY = selectRectangle.getY() + selectRectangle.getHeight()/2.0;
-        return abs(imageNodeCenterPointX - selectRectangleCenterPointX) <= (pictureNode.getWidth()/2.0 + selectRectangle.getWidth()/2.0) &&
-                abs(imageNodeCenterPointY - selectRectangleCenterPointY) <= (pictureNode.getHeight()/2.0 + selectRectangle.getHeight()/2.0);
+        double selectRectangleCenterPointX = selectRectangle.getX()
+                + selectRectangle.getWidth()/2.0;
+        double selectRectangleCenterPointY = selectRectangle.getY()
+                + selectRectangle.getHeight()/2.0;
+        return abs(imageNodeCenterPointX - selectRectangleCenterPointX)
+                <= (pictureNode.getWidth()/2.0 + selectRectangle.getWidth()/2.0) &&
+                abs(imageNodeCenterPointY - selectRectangleCenterPointY)
+                        <= (pictureNode.getHeight()/2.0 + selectRectangle.getHeight()/2.0);
     }//当宽度高度有一半在矩阵范围内则设置这些图片结点被选中
 
 }

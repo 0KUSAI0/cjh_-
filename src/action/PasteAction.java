@@ -57,7 +57,7 @@ public class PasteAction {
                 e.printStackTrace();
             }
             if(mainUIController.getCutedPictures().size()>0){
-                oldFile.delete();
+                oldFile.delete();//之前旧名字的图片文件删除
             }
         }
         clipboard.clear();

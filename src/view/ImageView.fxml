@@ -71,7 +71,7 @@
    <center>
       <ScrollPane fx:id="scrollPane" style="-fx-background-color: transparent;" BorderPane.alignment="CENTER">
          <content>
-            <BorderPane fx:id="pictureBox" prefHeight="655.0" prefWidth="897.0">
+            <BorderPane fx:id="pictureBox2" prefHeight="655.0" prefWidth="897.0">
                <center>
                   <ImageView fx:id="imageView" fitHeight="392.0" fitWidth="527.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
                </center>

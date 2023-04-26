@@ -4,6 +4,7 @@ package action;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.transform.Scale;
@@ -14,19 +15,14 @@ import java.io.IOException;
 
 public class PPTAction {
     private Stage stage;
+    private Alert infoAlert;
     public PPTAction(int howChange,boolean flag){
-        if(ChangeService.files==null){
-            String text="没有选中图片";
-            Button button =new Button(text);
-            Pane root= new Pane(button);
-            Scene scene=new Scene(root);
-            scene.getStylesheets().add("view/iVCSS.css");
-            stage=null;
-            stage=new Stage();
-            stage.setTitle("提醒");
-            stage.setScene(scene);
-            stage.show();
-            return;
+        if(ChangeService.files==null||ChangeService.files.size()==0){
+            infoAlert=new Alert(Alert.AlertType.INFORMATION);
+            infoAlert.setTitle("点击结果");
+            infoAlert.setContentText("当前文件夹下没有图片哦");
+            infoAlert.show();
+            return;//当当前文件夹下没有图片结点时
         }else{
             try {
                 ChangeService.flag=flag;
@@ -47,9 +43,6 @@ public class PPTAction {
                     ChangeService.stage.setTitle("幻灯片");
                     ChangeService.stage.show();
                 }
-                //ChangeService.stage.setScene(scene);
-                //ChangeService.stage.setTitle("幻灯片");
-                //ChangeService.stage.show();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

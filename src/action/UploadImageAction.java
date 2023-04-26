@@ -5,6 +5,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.PictureFile;
 import model.PictureNode;
+import service.FileCopy;
+import service.NewName;
 
 import java.io.*;
 import java.net.MalformedURLException;
@@ -14,40 +16,37 @@ public class UploadImageAction {
     private MainUIController mainUIController;
     private Stage stage;
     private File selcetFile;
-    private File uploadFile;
     private FileChooser fc;
     public UploadImageAction(MainUIController mainUIController){
         this.mainUIController = mainUIController;
         getselcetFile();
-
     }
 
     private void getselcetFile(){
         stage=new Stage();
-        fc=new FileChooser();
+        fc=new FileChooser();//构建一个文件选择器
         fc.setTitle("选择你要上传的图片");
         fc.setInitialDirectory(new File(MainUIController.theFilePath));
         fc.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("图片类型","*.jpg","*.png","*.gif","*.bmp","*.jpge")
-        );
+        );//设置能够上传的文件类型
         selcetFile=fc.showOpenDialog(stage);
         if (selcetFile==null)
-            return;
-        System.out.println(selcetFile.getAbsoluteFile());
-        String newName=newName(MainUIController.theFilePath,selcetFile.getName());
-        File newFile=new File(MainUIController.theFilePath+File.separator+newName);//并且生成一个文件
+            return;//如果用户没有选择图片则直接返回
+        String newName= NewName.PasterName(MainUIController.theFilePath, selcetFile.getName());//为上传图片文件生成名字
+        File newFile=new File(MainUIController.theFilePath+File.separator+newName);
         try {
-            newFile.createNewFile();
+            newFile.createNewFile();//并且创建成图片文件
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         if(newFile.exists()){
             try {
-                upload(selcetFile,newFile);
+               FileCopy.copyFile(selcetFile,newFile);//通过数据传输完成复制
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        }//如果文件生成成功了，则进行真正的复制操作
+        }
         try {
             PictureNode picture=new PictureNode(mainUIController,new PictureFile(newFile));//生成一个图片节点
             mainUIController.getFlowPane().getChildren().add(picture);//同时将其增加到预览图部分
@@ -55,46 +54,5 @@ public class UploadImageAction {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-
     }
-
-    private void upload(File fromFile,File toFile) throws IOException {
-        DataInputStream dis= new DataInputStream( new BufferedInputStream(new FileInputStream(fromFile)));
-        DataOutputStream dos= new DataOutputStream( new BufferedOutputStream(new FileOutputStream(toFile)));
-        byte[] buffer = new byte[1024];
-        int bytesRead;
-        while ((bytesRead = dis.read(buffer))!= -1) {
-            dos.write(buffer, 0, bytesRead);
-        }
-        dis.close();
-        dos.close();
-    }//将原图片进行复制
-
-    private String newName(String theFilePath,String name){
-        String newName = name;
-        File fatherPathFile=new File(theFilePath);
-        File[] filesInFatherPath=fatherPathFile.listFiles();
-        for(File fileInFatherPath: filesInFatherPath){
-            String fileName=fileInFatherPath.getName();
-            if(newName.compareTo(fileName)==0){
-                String str=null;
-                int end=newName.lastIndexOf("."),start=newName.lastIndexOf("_副本");
-                if(start!=-1){
-                    str=newName.substring(start,end);
-                    int num=1;
-                    num=Integer.parseInt(str.substring(str.lastIndexOf("_副本")+3))+1;
-                    int cnt=0,d=num-1;
-                    while(d!=0){
-                        d/=10;
-                        cnt++;
-                    }
-                    newName=newName.substring(0,end-cnt)+num+newName.substring(end);
-                }else{
-                    newName=newName.substring(0,end)+"_副本1"+newName.substring(end);
-                }
-            }
-
-        }
-        return newName;
-    }//生成新的名字
 }

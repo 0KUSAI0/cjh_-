@@ -18,9 +18,11 @@ public class SearchAction {
         this.searchText=searchText;
         if(searchText.getText()!=null&&!searchText.getText().isEmpty()){
             if(search()){
-                mainUIController.getText().setText("查询到"+mainUIController.searchedPicture.size()+"张图片");
+                mainUIController.getText().setText("查询到"
+                        +mainUIController.searchedPicture.size()+"张图片");
             }else{
-                mainUIController.getText().setText("查询到"+mainUIController.searchedPicture.size()+"张图片");
+                mainUIController.getText().setText("查询到"
+                        +mainUIController.searchedPicture.size()+"张图片");
                 infoAlert=new Alert(Alert.AlertType.INFORMATION);
                 infoAlert.setTitle("查询结果");
                 infoAlert.setContentText("没有找到相应名称的图片");
@@ -42,7 +44,6 @@ public class SearchAction {
                 pNode.getImageView().setEffect(null);
                 pNode.setSelected(false);
             }
-
             mainUIController.searchedPicture.clear();
         }
         boolean flag=false;
@@ -66,7 +67,7 @@ public class SearchAction {
                 }
                 if(flag1)
                     break;
-            }
+            }//通过遍历当前文件夹下所有图片结点，当搜索到符合要求的图片结点是将其设置为选择状态
         }
         return flag;
     }

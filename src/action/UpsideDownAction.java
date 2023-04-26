@@ -11,6 +11,6 @@ public class UpsideDownAction {
             imageView.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
         } else {
             imageView.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-        }
+        }//将图片结点的方向进行调换从而完成图片倒置
     }
 }

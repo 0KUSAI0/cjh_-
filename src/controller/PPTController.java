@@ -51,6 +51,7 @@ public class PPTController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         if(!ChangeService.flag){
             ImageViewController.index=0;
         }

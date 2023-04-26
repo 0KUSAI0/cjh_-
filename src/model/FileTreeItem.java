@@ -19,7 +19,6 @@ public class FileTreeItem extends TreeItem<PictureFile> {
 
     @Override
     public ObservableList<TreeItem<PictureFile>> getChildren() {
-
         if (isFirstChildren){
             isFirstChildren=false;
             super.getChildren().setAll(buildChildren(this));

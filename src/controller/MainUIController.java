@@ -111,7 +111,6 @@ public class MainUIController implements Initializable {
 
     public void FindPictureAction(TreeView<PictureFile> leafView){
         findPictureField.setOnAction(event -> {
-            //System.out.println("Search");
             String fileType = "";
             String path = findPictureField.getText();
             fileType = path.substring(path.lastIndexOf(":")-1);
@@ -141,9 +140,6 @@ public class MainUIController implements Initializable {
         ImageViewController.index=0;
     }
 
-    /*
-        getter;
-    */
     @FXML
     private ScrollPane picturePane;
     public ArrayList<PictureNode> getPictures() {
@@ -200,9 +196,6 @@ public class MainUIController implements Initializable {
         return this.files;
     }
 
-   /*private void flowPaneAddListener(){
-        flowPane.addEventHandler(MouseEvent.MOUSE_CLICKED,new MouseEventHandler());
-    }*/
 
     private void ScreenAdaptation(){
         Window mainStage= Main.mainStage;
@@ -223,8 +216,6 @@ public class MainUIController implements Initializable {
             }
         });
     }
-
-
 
 
     public ArrayList<File> getSelectedPictureFiles(){

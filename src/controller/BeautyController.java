@@ -1,5 +1,6 @@
 package controller;
 
+import action.BackAction;
 import action.OpenAction;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
@@ -32,9 +33,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class BeautyController implements Initializable {
-    //private final Desktop desktop = Desktop.getDesktop();
-    //private final FileChooser fileChooser = new FileChooser();
-    // private Image image;
     private Stage stage;
 
     @FXML
@@ -75,9 +73,6 @@ public class BeautyController implements Initializable {
     @FXML
     private AnchorPane rightpane;
 
-    //@FXML
-    //private Button ChangeButton;
-
     @FXML
     private ImageView image1;
 
@@ -98,14 +93,6 @@ public class BeautyController implements Initializable {
     @FXML
     private ImageView image6;
 
-//    @FXML
-//    private ImageView image7;
-//
-//    @FXML
-//    private ImageView image8;
-//
-//    @FXML
-//    private ImageView image9;
 
     @FXML
     private Button SaveButton;
@@ -125,12 +112,8 @@ public class BeautyController implements Initializable {
 
     @FXML
     private void Back(ActionEvent event) {//返回按钮
-//        backpane.setVisible(true);//提示未保存界面，设置成可见
-//        textarea.setStyle("-fx-background-color:  #2e2d2d;");//设置背景颜色样式
-//        sure.setDisable(false);//启用sure
-//        cancel.setDisable(false);//启用cancel
         ChangeService.change = imageview;
-        new OpenAction(1);
+        new BackAction(1);
     }
 
     @FXML
@@ -155,7 +138,6 @@ public class BeautyController implements Initializable {
             test.setStyle("-fx-border-color:  #2e2d2d;-fx-background-color:  #2e2d2d;");
         }
         test = ((Button) e.getSource());
-        //((Button) e.getSource()).setStyle("-fx-border-color:  #42ff51;-fx-background-color:  #2e2d2d;");
         slider.setOpacity(0.0);//不透明度（可见度）设置成0，隐藏滑动条
         imageview.setEffect(null);
     }
@@ -195,7 +177,6 @@ public class BeautyController implements Initializable {
 
     @FXML
     private void Bloom(ActionEvent e) {//滤镜4，Bloom
-
         if (test != null) {
             test.setStyle("-fx-border-color:  #2e2d2d;-fx-background-color:  #2e2d2d;");
         }
@@ -203,11 +184,10 @@ public class BeautyController implements Initializable {
         ((Button) e.getSource()).setStyle("-fx-border-color:  #42ff51;-fx-background-color:  #2e2d2d;");
         slider.setOpacity(0.5);
         slider.setValue(0.5);
-        Bloom bloom = new Bloom();
+        Bloom bloom = new Bloom(0.5);
         imageview.setEffect(bloom);
         slider.valueProperty().addListener((ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
-            bloom.setThreshold(new_val.doubleValue());
-
+            bloom.setThreshold(1-new_val.doubleValue());
         });
     }
 
@@ -268,9 +248,6 @@ public class BeautyController implements Initializable {
         this.setImageViewImage(image4);
         this.setImageViewImage(image5);
         this.setImageViewImage(image6);
-//      this.setImageViewImage(image7);
-//      this.setImageViewImage(image8);
-//      this.setImageViewImage(image9);
         image1.setEffect(null);
         Blend blend = new Blend();
         blend.setMode(BlendMode.OVERLAY);
@@ -307,34 +284,8 @@ public class BeautyController implements Initializable {
     }
 
     public void setImage() {
-        //imageview.setImage(ChangeService.change.getImage());
         imageview.setImage(ChangeService.files.get(ImageViewController.index).getImage());
-        // imageview.setEffect(ChangeService.change.getEffect());
-        // imageview.setViewport(ChangeService.change.getViewport());
-        // imageview.setNodeOrientation(ChangeService.change.getNodeOrientation());
-        // imageview.setRotate(ChangeService.change.getRotate());
         setImageViewEffect();
-        /*
-         * this.setImageViewImage(image1); this.setImageViewImage(image2);
-         * this.setImageViewImage(image3); this.setImageViewImage(image4);
-         * this.setImageViewImage(image5); this.setImageViewImage(image6);
-         * this.setImageViewImage(image7); this.setImageViewImage(image8);
-         * this.setImageViewImage(image9); image1.setEffect(null); Blend blend = new
-         * Blend(); blend.setMode(BlendMode.OVERLAY); blend.setOpacity(0.5);
-         * image2.setEffect(blend); SepiaTone sep = new SepiaTone(0.5);
-         * image3.setEffect(sep); Bloom bloom = new Bloom(0.5); image4.setEffect(bloom);
-         * BoxBlur boxblur = new BoxBlur(); boxblur.setWidth(5.0);
-         * boxblur.setIterations(1); ColorAdjust color1 = new ColorAdjust();
-         * color1.setSaturation(-1.0); color1.setInput(boxblur);
-         * boxblur.setInput(blend); image5.setEffect(color1); Blend blend2 = new
-         * Blend(); blend2.setMode(BlendMode.EXCLUSION); blend2.setOpacity(0.5);
-         * image6.setEffect(blend2); ColorAdjust color2 = new ColorAdjust();
-         * color2.setHue(-0.6); color2.setInput(blend); image7.setEffect(color2);
-         * ColorAdjust color3 = new ColorAdjust(); color3.setSaturation(-1.0);
-         * color3.setInput(blend); image8.setEffect(color3); ColorAdjust color4 = new
-         * ColorAdjust(); color4.setHue(0.6); color4.setInput(blend);
-         * image9.setEffect(color4);
-         */
     }
 
     @FXML
@@ -521,7 +472,6 @@ public class BeautyController implements Initializable {
                 .bind(ChangeService.stage.heightProperty().subtract(toppane.heightProperty()).divide(4).multiply(3));
 
         slider.prefWidthProperty().bind(imageview.fitWidthProperty().divide(4).multiply(3));
-        //ChangeButton.setTooltip(new Tooltip("裁剪和旋转"));
     }
 
 }
